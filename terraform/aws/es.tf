@@ -41,3 +41,9 @@ resource "aws_elasticsearch_domain_policy" "monitoring-framework-policy" {
   domain_name     = aws_elasticsearch_domain.monitoring-framework.domain_name
   access_policies = data.aws_iam_policy_document.policy.json
 }
+
+resource "aws_elasticsearch_domain_policy" "monitoring-framework-policy2" {
+  domain_name     = aws_elasticsearch_domain.monitoring-framework.domain_name
+  access_policies = data.aws_iam_policy_document.policy.json
+}
+
