@@ -9,8 +9,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master 
         with:
-          directory: terraform/
+          api-key: ${{ secrets.BC_API_KEY }}
