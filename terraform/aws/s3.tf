@@ -63,6 +63,16 @@ resource "aws_s3_bucket" "financials2" {
 
 }
 
+
+resource "aws_s3_bucket_versioning" "financials2" {
+  bucket = aws_s3_bucket.financials2.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
 resource "aws_s3_bucket" "financials" {
   # bucket is not encrypted
   # bucket does not have access logs
