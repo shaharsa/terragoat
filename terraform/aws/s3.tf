@@ -61,6 +61,13 @@ resource "aws_s3_bucket" "financials2" {
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
   })
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket" "financials" {
