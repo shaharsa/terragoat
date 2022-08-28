@@ -63,6 +63,30 @@ resource "aws_s3_bucket" "financials2" {
 
 }
 
+
+resource "aws_s3_bucket" "financials2_log_bucket" {
+  bucket = "financials2-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "financials2" {
+  bucket = aws_s3_bucket.financials2.id
+
+  target_bucket = aws_s3_bucket.financials2_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "financials2" {
+  bucket = aws_s3_bucket.financials2.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
 resource "aws_s3_bucket" "financials" {
   # bucket is not encrypted
   # bucket does not have access logs
