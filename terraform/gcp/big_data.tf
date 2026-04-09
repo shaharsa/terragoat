@@ -25,13 +25,14 @@ resource google_bigquery_dataset "dataset" {
     role          = "READER"
   }
   labels = {
-    git_commit           = "83661b5e88dd3768c10dbcfa2050c04d85b62fa8"
-    git_file             = "terraform/gcp/big_data.tf"
-    git_last_modified_at = "2020-07-09 13:34:36"
-    git_last_modified_by = "nimrodkor@gmail.com"
+    git_commit           = "5c6b5d60a8aa63a5d37e60f15185d13a967f0542"
+    git_file             = "terraform__gcp__big_data_tf"
+    git_last_modified_at = "2021-05-02-10-06-10"
+    git_last_modified_by = "nimrodkor"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "shaharsa"
     git_repo             = "terragoat"
     yor_trace            = "2560d883-bc3a-4cb6-b9fc-fb666edf626e"
+    yor_name             = "dataset"
   }
 }
