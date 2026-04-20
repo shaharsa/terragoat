@@ -6,7 +6,7 @@ resource "aws_neptune_cluster" "default" {
   skip_final_snapshot                 = true
   iam_database_authentication_enabled = false
   apply_immediately                   = true
-  storage_encrypted                   = false
+  storage_encrypted                   = true
   tags = {
     git_commit           = "5c6b5d60a8aa63a5d37e60f15185d13a967f0542"
     git_file             = "terraform/aws/neptune.tf"
