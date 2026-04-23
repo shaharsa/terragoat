@@ -144,6 +144,13 @@ resource "aws_s3_bucket" "data_science" {
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
     yor_name             = "data_science"
   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket" "logs" {
