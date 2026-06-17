@@ -21,6 +21,16 @@ resource "aws_s3_bucket" "data" {
     }, {
     yor_name = "data"
   })
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
+  versioning {
+    enabled = "versioning/[0]/enabled:true"
+  }
 }
 
 resource "aws_s3_bucket_object" "data_object" {
