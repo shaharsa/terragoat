@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "data" {
   # bucket does not have access logs
   # bucket does not have versioning
   bucket        = "${local.resource_prefix.value}-data"
-  acl           = "public-read"
+  acl           = "private"
   force_destroy = true
   tags = merge({
     Name        = "${local.resource_prefix.value}-data"
@@ -21,6 +21,49 @@ resource "aws_s3_bucket" "data" {
     }, {
     yor_name = "data"
   })
+}
+
+
+resource "aws_s3_bucket" "data_log_bucket" {
+  bucket = "data-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "data" {
+  bucket = aws_s3_bucket.data.id
+
+  target_bucket = aws_s3_bucket.data_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data" {
+  bucket = aws_s3_bucket.data.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data" {
+  bucket = aws_s3_bucket.data.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+resource "aws_s3_bucket_versioning" "data" {
+  bucket = aws_s3_bucket.data.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket_object" "data_object" {
@@ -69,6 +112,27 @@ resource "aws_s3_bucket" "financials2" {
 
 }
 
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "financials2" {
+  bucket = aws_s3_bucket.financials2.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+
+resource "aws_s3_bucket_versioning" "financials2" {
+  bucket = aws_s3_bucket.financials2.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket" "financials" {
   # bucket is not encrypted
   # bucket does not have access logs
@@ -92,6 +156,50 @@ resource "aws_s3_bucket" "financials" {
     yor_name = "financials"
   })
 
+}
+
+
+resource "aws_s3_bucket" "financials_log_bucket" {
+  bucket = "financials-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "financials" {
+  bucket = aws_s3_bucket.financials.id
+
+  target_bucket = aws_s3_bucket.financials_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "financials" {
+  bucket = aws_s3_bucket.financials.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "financials" {
+  bucket = aws_s3_bucket.financials.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+resource "aws_s3_bucket_versioning" "financials" {
+  bucket = aws_s3_bucket.financials.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket" "operations" {
@@ -121,6 +229,41 @@ resource "aws_s3_bucket" "operations" {
 
 }
 
+
+resource "aws_s3_bucket" "operations_log_bucket" {
+  bucket = "operations-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "operations" {
+  bucket = aws_s3_bucket.operations.id
+
+  target_bucket = aws_s3_bucket.operations_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "operations" {
+  bucket = aws_s3_bucket.operations.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "operations" {
+  bucket = aws_s3_bucket.operations.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
 resource "aws_s3_bucket" "data_science" {
   # bucket is not encrypted
   bucket = "${local.resource_prefix.value}-data-science"
@@ -143,6 +286,29 @@ resource "aws_s3_bucket" "data_science" {
     git_repo             = "terragoat"
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
     yor_name             = "data_science"
+  }
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data_science" {
+  bucket = aws_s3_bucket.data_science.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data_science" {
+  bucket = aws_s3_bucket.data_science.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
   }
 }
 
@@ -176,4 +342,16 @@ resource "aws_s3_bucket" "logs" {
     }, {
     yor_name = "logs"
   })
+}
+
+
+resource "aws_s3_bucket" "logs_log_bucket" {
+  bucket = "logs-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "logs" {
+  bucket = aws_s3_bucket.logs.id
+
+  target_bucket = aws_s3_bucket.logs_log_bucket.id
+  target_prefix = "log/"
 }
